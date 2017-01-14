@@ -1,5 +1,4 @@
-# React Starter Kit
-
+# Number Guesser React
 To install the dependencies:
 
 ```
