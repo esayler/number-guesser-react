@@ -2,23 +2,27 @@ import React from 'react'
 import Button from './Button'
 import Input from './Input'
 import Hud from './Hud'
+import { guessCheck, getRandomNum } from '../numberGuesser'
 
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
       guess: '',
-      secret: 11,
-      max: 100,
-      min: 0,
+      secret: 0,
+      range: {
+        max: 100,
+        min: 0,
+      },
       lastGuess: '',
+      message: '',
     }
 
   }
 
   componentDidMount() {
     this.setState({
-      secret: Math.floor(Math.random() * (this.state.max - this.state.min + 1)) + this.state.min,
+      secret: getRandomNum(this.state.range),
     })
   }
 
@@ -26,7 +30,6 @@ export default class App extends React.Component {
     this.setState({
       guess: e.target.value,
     })
-    console.log(`secret number: ${this.state.secret}`)
   }
 
   handleKeyPress(e) {
@@ -39,6 +42,7 @@ export default class App extends React.Component {
   handleSubmit() {
     this.setState({
       lastGuess: this.state.guess,
+      message: guessCheck(this.state.guess, this.state.secret, this.state.range),
     })
 
     this.handleClear()
@@ -53,10 +57,11 @@ export default class App extends React.Component {
   handleReset() {
     this.setState({
       guess: '',
-      secret: Math.floor(Math.random() * (this.state.max - this.state.min + 1)) + this.state.min,
+      secret: getRandomNum(this.state.range),
       max: 100,
       min: 0,
       lastGuess: '',
+      message: '',
     })
   }
 
@@ -64,7 +69,8 @@ export default class App extends React.Component {
     return (
       <div>
         <h1>Number Guesser</h1>
-        <Hud lastGuess={this.state.lastGuess} message='message goes here'/>
+        <Hud lastGuess={this.state.lastGuess}
+             message={this.state.message} />
         <Input className='input guess-input'
                type='number'
                placeholder='Your best guess'
