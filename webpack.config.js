@@ -1,10 +1,13 @@
+const path = require('path');
+
 module.exports = {
   entry: {
     main: ['babel-polyfill', './lib/index.js'],
     test: ['babel-polyfill', 'mocha!./test/index.js'],
   },
   output: {
-    path: __dirname,
+    path: path.join(__dirname, 'public'),
+    publicPath: '/public/',
     filename: '[name].bundle.js',
   },
   module: {
@@ -19,6 +22,7 @@ module.exports = {
       },
       { test: /\.css$/, loader: 'style!css' },
       { test: /\.scss$/, loader: 'style!css!sass' },
+      { test: /\.svg$/, loader: 'svg-url-loader' },
     ],
   },
   resolve: {
