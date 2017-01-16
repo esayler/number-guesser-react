@@ -69,16 +69,7 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 25px 0;
 }
 
-button:disabled,
-button[disabled]:active,
-button[disabled]:hover
-{
-  background-color: #ededed;
-  color: #D0D2D3;
-  cursor: inherit;
-}
-
-button {
+.btn {
   font-size: 100%;
   background-color: #D0D2D3;
   border: none;
@@ -89,20 +80,27 @@ button {
   text-decoration: none;
   padding: 8px 5px 8px 5px;
   width: 100px;
+
+  &:hover {
+    background-color: #EB008B;
+  }
+
+  &:active {
+    background-color: #c60075;
+  }
+
+  &:focus {
+    outline:0;
+    background-color: #EB008B;
+  }
+
+  &:disabled {
+    background-color: #ededed;
+    color: #D0D2D3;
+    cursor: inherit;
+  }
 }
 
-button:hover {
-  background-color: #EB008B;
-}
-
-button:active {
-  background-color: #c60075;
-}
-
-button:focus {
-  outline:0;
-  background-color: #EB008B;
-}
 
 :-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #D0D2D3;

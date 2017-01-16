@@ -24,6 +24,8 @@ export default class App extends React.Component {
         bottom: 'New game! Enter your best guess below...',
       },
       started: false,
+      winState: false,
+      wins: 0,
     }
 
   }
@@ -66,16 +68,30 @@ export default class App extends React.Component {
   }
 
   handleSubmit() {
+    const { winState, msg } = guessCheck(this.state.guess, this.state.secret, this.state.range)
     this.setState({
       lastGuess: this.state.guess,
       message: {
         top: 'Your last guess was...',
-        bottom: guessCheck(this.state.guess, this.state.secret, this.state.range)
+        bottom: msg
       },
       started: true,
+      winState: winState,
     })
 
-    this.handleClear()
+    // this.handleClear()
+
+    if (winState) {
+      this.handleReset({
+        max: this.state.range.max + 10,
+        min: this.state.range.min - 10,
+      })
+
+      this.setState({
+        wins: this.state.wins + 1,
+      })
+    }
+
   }
 
   handleClear() {
@@ -105,6 +121,8 @@ export default class App extends React.Component {
         bottom: 'New game! Enter your best guess below...',
       },
       started: false,
+      winState: false,
+      wins: 0,
     })
   }
 
@@ -139,7 +157,7 @@ export default class App extends React.Component {
                 onClick={ this.handleClear.bind(this) } />
         <Button className='btn btn-reset'
                 text='Reset Game'
-                disabled={ !this.state.started }
+                disabled={ this.state.wins === 0 && !this.state.started }
                 onClick={ this.handleReset.bind(this) } />
         <Input className='input min-input'
                type='number'
