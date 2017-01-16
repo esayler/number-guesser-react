@@ -1,17 +1,17 @@
 # Number Guesser React
-To install the dependencies:
+## To install the dependencies:
 
-Using yarn:
+####With yarn:
 ```
 yarn
 ```
 
-Using npm:
+####With npm:
 ```
 npm install
 ```
 
-To fire up a development server:
+##To fire up a development server:
 
 ```
 npm start
@@ -19,9 +19,9 @@ npm start
 
 Once the server is running, you can visit:
 
-* `http://localhost:8080/public/` to the application.
+* `http://localhost:8080/public/` to view the application.
 
-To build the static files:
+##To build the static files:
 
 ```js
 npm run build
