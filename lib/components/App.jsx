@@ -38,14 +38,14 @@ export default class App extends React.Component {
 
   updateGuessState(e) {
     this.setState({
-      guess: parseInt(e.target.value, 10),
+      guess: e.target.value,
     })
   }
 
   updateMinState(e) {
     this.setState({
       rangeDraft: {
-        min: parseInt(e.target.value, 10),
+        min: e.target.value,
         max: this.state.rangeDraft.max,
       },
     })
@@ -55,15 +55,25 @@ export default class App extends React.Component {
     this.setState({
       rangeDraft: {
         min: this.state.rangeDraft.min,
-        max: parseInt(e.target.value, 10),
+        max: e.target.value,
       },
     })
   }
 
-  handleKeyPress(e) {
+  handleGuessKeyPress(e) {
     if (e.key === 'Enter') {
       e.preventDefault()
-      this.handleSubmit()
+      if (this.state.guess != '') {
+        this.handleSubmit()
+      }
+    }
+  }
+
+
+  handleRangeKeyPress(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      this.handleRangeUpdate()
     }
   }
 
@@ -73,7 +83,7 @@ export default class App extends React.Component {
       lastGuess: this.state.guess,
       message: {
         top: 'Your last guess was...',
-        bottom: msg
+        bottom: msg,
       },
       started: true,
       winState: winState,
@@ -85,7 +95,7 @@ export default class App extends React.Component {
       this.handleReset({
         max: this.state.range.max + 10,
         min: this.state.range.min - 10,
-      })
+      }, winState)
 
       this.setState({
         wins: this.state.wins + 1,
@@ -100,7 +110,7 @@ export default class App extends React.Component {
     })
   }
 
-  handleReset(range) {
+  handleReset(range, winState) {
     // TODO: change hack used to get this shared method to work
     // (range is proxy object on reset button click, and is a range object on range update)
     range = range.min !== undefined ? range : { max: 100, min: 0 }
@@ -117,7 +127,7 @@ export default class App extends React.Component {
       },
       lastGuess: '',
       message: {
-        top: '',
+        top: winState ? 'Correct! You Win!' : '',
         bottom: 'New game! Enter your best guess below...',
       },
       started: false,
@@ -127,7 +137,16 @@ export default class App extends React.Component {
   }
 
   handleRangeUpdate() {
-    this.handleReset(this.state.rangeDraft)
+    const newRange = this.state.rangeDraft
+    let minIsANumber = /^\d+$/.test(this.state.rangeDraft.min)
+    if (!minIsANumber || this.state.rangeDraft.min === '')  {
+      newRange.min = this.state.range.min
+    }
+    const maxIsANumber = /^\d+$/.test(this.state.rangeDraft.max)
+    if (!maxIsANumber || this.state.rangeDraft.max === '')  {
+      newRange.max = this.state.range.max
+    }
+    this.handleReset(newRange)
   }
 
   render() {
@@ -142,14 +161,14 @@ export default class App extends React.Component {
         <Hud lastGuess={this.state.lastGuess}
              message={this.state.message} />
         <Input className='input guess-input'
-               type='number'
+               type='text'
                placeholder='Your best guess'
                value={ this.state.guess }
-               onKeyPress={ e => this.handleKeyPress(e) }
+               onKeyPress={ e => this.handleGuessKeyPress(e) }
                onChange={ e => this.updateGuessState(e) } />
         <Button className='btn btn-submit'
                 text='Guess'
-                disabled={this.state.guess === ''}
+                disabled={this.state.guess === '' || this.state.guess === null}
                 onClick={ this.handleSubmit.bind(this) } />
         <Button className='btn btn-clear'
                 text='Clear'
@@ -160,20 +179,20 @@ export default class App extends React.Component {
                 disabled={ this.state.wins === 0 && !this.state.started }
                 onClick={ this.handleReset.bind(this) } />
         <Input className='input min-input'
-               type='number'
+               type='text'
                placeholder={`min: ${this.state.range.min}`}
                value={ this.state.rangeDraft.min }
-               onKeyPress={ e => this.handleKeyPress(e) }
+               onKeyPress={ e => this.handleRangeKeyPress(e) }
                onChange={ e => this.updateMinState(e) } />
         <Input className='input max-input'
-               type='number'
+               type='text'
                placeholder={`max: ${this.state.range.max}`}
                value={ this.state.rangeDraft.max }
-               onKeyPress={ e => this.handleKeyPress(e) }
+               onKeyPress={ e => this.handleRangeKeyPress(e) }
                onChange={ e => this.updateMaxState(e) } />
         <Button className='btn btn-update-min-max'
                 text='Update Range'
-                disabled={ this.state.rangeDraft.min === '' || this.state.rangeDraft.max === '' }
+                disabled={false}
                 onClick={ this.handleRangeUpdate.bind(this) } />
       </div>
     )
