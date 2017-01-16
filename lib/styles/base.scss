@@ -1,0 +1,124 @@
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,500');
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 100%;
+  text-align: center;
+}
+
+header {
+  background-color: #404041;
+  height: auto;
+}
+
+.title1,
+.title2 {
+  display: inline;
+}
+
+.title-container {
+  font-size: 36px;
+  padding: 7px 0;
+}
+
+.title1 {
+  color: #ED458B;
+  font-weight: 500;
+}
+
+.title2 {
+  color: #E6E7E8;
+  font-weight: 300;
+}
+
+
+input {
+  color: #404041;
+  border: 1px solid #D0D2D3;
+  padding: 2px 15px;
+  width: 95%;
+  height: 35px;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+/* remove spinners from number input boxes */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+}
+
+.message-top {
+  margin: 10px 0 0 0;
+  height: 16px;
+}
+
+.message-bottom {
+  font-weight: 400;
+}
+
+.last-guess {
+  color: #EB008B;
+  font-size: 86px;
+  font-weight: lighter;
+  margin: 25px 0;
+}
+
+button:disabled,
+button[disabled]:active,
+button[disabled]:hover
+{
+  background-color: #ededed;
+  color: #D0D2D3;
+  cursor: inherit;
+}
+
+button {
+  font-size: 100%;
+  background-color: #D0D2D3;
+  border: none;
+  border-radius: 40px;
+  color: #FFFFFF;
+  font-weight: lighter;
+  margin: 20px 5px;
+  text-decoration: none;
+  padding: 8px 5px 8px 5px;
+  width: 100px;
+}
+
+button:hover {
+  background-color: #EB008B;
+}
+
+button:active {
+  background-color: #c60075;
+}
+
+button:focus {
+  outline:0;
+  background-color: #EB008B;
+}
+
+:-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #D0D2D3;
+  text-align: center;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #D0D2D3;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #D0D2D3;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #D0D2D3;
+}
+
+.hud {
+  margin: 20px;
+  height: 200px;
+}
