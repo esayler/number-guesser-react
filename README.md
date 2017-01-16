@@ -1,6 +1,12 @@
 # Number Guesser React
 To install the dependencies:
 
+Using yarn:
+```
+yarn
+```
+
+Using npm:
 ```
 npm install
 ```
@@ -13,18 +19,10 @@ npm start
 
 Once the server is running, you can visit:
 
-* `http://localhost:8080/webpack-dev-server/` to run your application.
-* `http://localhost:8080/webpack-dev-server/test.html` to run your test suite in the browser.
+* `http://localhost:8080/public/` to the application.
 
 To build the static files:
 
 ```js
 npm run build
-```
-
-
-To run tests in Node:
-
-```js
-npm test
 ```
