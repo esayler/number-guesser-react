@@ -79,7 +79,7 @@ export default class App extends React.Component {
       winState: winState,
     })
 
-    // this.handleClear()
+    this.handleClear()
 
     if (winState) {
       this.handleReset({
